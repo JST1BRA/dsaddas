@@ -24,8 +24,9 @@ end
 
 -- Function to find a player by partial name
 local function findPlayerByPartialName(partialName)
+    partialName = partialName:lower()
     for _, player in ipairs(Players:GetPlayers()) do
-        if player.Name:lower():find(partialName:lower()) then
+        if player.Name:lower():find(partialName) then
             return player
         end
     end
