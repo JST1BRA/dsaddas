@@ -22,11 +22,21 @@ local function stopSpectating()
     workspace.CurrentCamera.CameraSubject = localPlayer.Character:FindFirstChildOfClass("Humanoid")
 end
 
+-- Function to find a player by partial name
+local function findPlayerByPartialName(partialName)
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player.Name:lower():find(partialName:lower()) then
+            return player
+        end
+    end
+    return nil
+end
+
 -- Listen for chat messages
 local function onPlayerChatted(message)
     if message:sub(1, 6) == "!view " then
-        local playerName = message:sub(7)
-        local targetPlayer = Players:FindFirstChild(playerName)
+        local partialName = message:sub(7)
+        local targetPlayer = findPlayerByPartialName(partialName)
         if targetPlayer then
             startSpectating(targetPlayer)
         else
